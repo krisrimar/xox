@@ -6,6 +6,23 @@
 
 using namespace std;
 
+string exou [9] = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+
+void printBoard(int * l, int * m, int * n) {
+    string openCell = "| ", closeCell = "|\n", emptyCellSpace = " ", cellRowDivider = " -----------\n";
+
+    for (*l; *l < 4; (*l)++) { // чого *l++ давало дивний результат?
+        //cout << "\n" << *l;
+        cout << cellRowDivider;
+        cout << openCell << exou [*n] << emptyCellSpace << openCell << exou [*n+1] << emptyCellSpace << openCell << exou [*n+2] << emptyCellSpace << closeCell;
+        *n = *n + 3;
+        //cout << "\n" << *l;
+    }
+    cout << cellRowDivider;
+    //cout << "\n" << *l << "\n" << l;
+}
+
+
 int main(void) {
 
     SetConsoleCP(1251); // also for Ukrainian locale. is Windows-specific, requires the "windows.h" header
@@ -13,9 +30,15 @@ int main(void) {
 
     setlocale(LC_CTYPE, "ukr"); // in order to display Ukrainian in the console window
 
-    string exou [9] = {}, emptyCell = "|    ", cellClose = "|\n", cellRowDivider = " -----------\n";
 
-    cout << " -----------\n|  " << exou[0] << " | " << exou[1] << "  | x |\n -----------\n";
+    int j = 1, k = 0, i = 0;
+
+    //i - *n - number of cell
+    //j - *l - number of row
+
+    printBoard(&j, &k, &i);
+
+
 
     return 0;
 
