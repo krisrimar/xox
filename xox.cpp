@@ -6,20 +6,17 @@
 
 using namespace std;
 
-string exou [9] = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
-void printBoard(int * l, int * m, int * n) {
+
+void printBoard(int * l, int * m, int * n, string (*exoup)[9]) {
     string openCell = "| ", closeCell = "|\n", emptyCellSpace = " ", cellRowDivider = " -----------\n";
 
-    for (*l; *l < 4; (*l)++) { // чого *l++ давало дивний результат?
-        //cout << "\n" << *l;
+    for (*l; *l < 4; (*l)++) {
         cout << cellRowDivider;
-        cout << openCell << exou [*n] << emptyCellSpace << openCell << exou [*n+1] << emptyCellSpace << openCell << exou [*n+2] << emptyCellSpace << closeCell;
+        cout << openCell << (*exoup) [*n] << emptyCellSpace << openCell << (*exoup) [*n+1] << emptyCellSpace << openCell << (*exoup) [*n+2] << emptyCellSpace << closeCell;
         *n = *n + 3;
-        //cout << "\n" << *l;
     }
     cout << cellRowDivider;
-    //cout << "\n" << *l << "\n" << l;
 }
 
 
@@ -30,13 +27,10 @@ int main(void) {
 
     setlocale(LC_CTYPE, "ukr"); // in order to display Ukrainian in the console window
 
-
     int j = 1, k = 0, i = 0;
+    string exou [9] = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
-    //i - *n - number of cell
-    //j - *l - number of row
-
-    printBoard(&j, &k, &i);
+    printBoard(&j, &k, &i, &exou);
 
 
 
