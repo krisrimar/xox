@@ -6,17 +6,38 @@
 
 using namespace std;
 
-
-
-void printBoard(int * l, int * m, int * n, string (*exoup)[9]) {
+void printBoard(int * l, int * m, int * n, char (*exoup)[9]) {
     string openCell = "| ", closeCell = "|\n", emptyCellSpace = " ", cellRowDivider = " -----------\n";
 
-    for (*l; *l < 4; (*l)++) {
+   for (*l; *l < 4; (*l)++) {
         cout << cellRowDivider;
         cout << openCell << (*exoup) [*n] << emptyCellSpace << openCell << (*exoup) [*n+1] << emptyCellSpace << openCell << (*exoup) [*n+2] << emptyCellSpace << closeCell;
         *n = *n + 3;
     }
+
+    *l = 0;
+    *m = 0;
+    *n = 0;
+
     cout << cellRowDivider;
+}
+
+char getUserInput(char (*exoup)[9]) {
+    int cellNumber;
+    cout << "Enter cell number: ";
+    cin >> cellNumber;
+    (*exoup)[(cellNumber) - 1] = 'x';
+    return cellNumber;
+}
+
+bool noEmptyCells(char (*exoup)[9]) {
+    for(int i; i < 9; i++) {
+        if((*exoup)[i] == ' ') {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
 
 
@@ -28,15 +49,23 @@ int main(void) {
     setlocale(LC_CTYPE, "ukr"); // in order to display Ukrainian in the console window
 
     int j = 1, k = 0, i = 0;
-    string exou [9] = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    char exou [9] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
     printBoard(&j, &k, &i, &exou);
 
+    while(noEmptyCells(&exou) == false) {
+        getUserInput(&exou);
+        printBoard(&j, &k, &i, &exou);
+        noEmptyCells(&exou);
+    }
 
 
     return 0;
 
+
 }
+
+
 
 
 

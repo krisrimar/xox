@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1454450635 source:c:\users\kris\documents\github\xox\xox\main.cpp
+	<iostream>
+	<locale>
+	<string>
+	<typeinfo>
+	"windows.h"
+	<iostream>
+	<iostream>
+	<iostream>
+	<iostream>
+	<iostream>
+	<iostream>
+	<iostream>
+	<iostream>
+	<iostream>
+
