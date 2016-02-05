@@ -1,26 +1,28 @@
 #include <iostream>
 #include <locale> // also for the language Ukrainian setting to work
-#include <string> // for usign 'string' type
+#include <string> // for using 'string' type
 #include <typeinfo> // for printing out types of variables
 #include "windows.h"; // this is for the language Ukrainian setting to work
 
 using namespace std;
 
 void printBoard(int * l, int * m, int * n, char (*exoup)[9]) {
+
     string openCell = "| ", closeCell = "|\n", emptyCellSpace = " ", cellRowDivider = " -----------\n";
 
-   for (*l; *l < 4; (*l)++) {
+    for (*l; *l < 4; (*l)++) {
         cout << cellRowDivider;
         cout << openCell << (*exoup) [*n] << emptyCellSpace << openCell << (*exoup) [*n+1] << emptyCellSpace << openCell << (*exoup) [*n+2] << emptyCellSpace << closeCell;
         *n = *n + 3;
     }
 
-    *l = 0;
-    *m = 0;
+    *l = 1;
     *n = 0;
 
     cout << cellRowDivider;
 }
+
+// Get input form the user and set 'x' for that cell
 
 char getUserInput(char (*exoup)[9]) {
     int cellNumber;
@@ -30,14 +32,16 @@ char getUserInput(char (*exoup)[9]) {
     return cellNumber;
 }
 
-bool noEmptyCells(char (*exoup)[9]) {
-    for(int i; i < 9; i++) {
+// Check if there are any empty cells left (if no, the game should end)
+
+int noEmptyCells(char (*exoup)[9]) {
+    for(int i = 0; i < 9; i++) {
         if((*exoup)[i] == ' ') {
-            return false;
-        } else {
-            return true;
+            return 1;
         }
     }
+
+    return 0;
 }
 
 
@@ -49,14 +53,15 @@ int main(void) {
     setlocale(LC_CTYPE, "ukr"); // in order to display Ukrainian in the console window
 
     int j = 1, k = 0, i = 0;
-    char exou [9] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    char exou [9] = {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
 
     printBoard(&j, &k, &i, &exou);
 
-    while(noEmptyCells(&exou) == false) {
+    // Run asking user input and printing out the board until noEmptyCell function returns 0
+
+    while(noEmptyCells(&exou) == 1) {
         getUserInput(&exou);
         printBoard(&j, &k, &i, &exou);
-        noEmptyCells(&exou);
     }
 
 
