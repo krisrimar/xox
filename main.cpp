@@ -28,6 +28,9 @@ char getUserInput(char (*exoup)[9]) {
     int cellNumber;
     cout << "Enter cell number: ";
     cin >> cellNumber;
+
+    /* validation of user input should go here */
+
     (*exoup)[(cellNumber) - 1] = 'x';
     return cellNumber;
 }
@@ -43,6 +46,23 @@ int noEmptyCells(char (*exoup)[9]) {
 
     return 0;
 }
+
+void computerMakeMove(char (*exoup)[9]) {
+    srand(time(0));
+    int randomCell = rand() % 9;
+    while((*exoup)[randomCell] != ' ') {
+        randomCell = rand() % 9;
+    }
+    (*exoup)[randomCell] = 'o';
+    cout << randomCell << "\n";
+
+}
+
+/*void checkWinCombination((*exoup)[9]) {
+
+}
+
+*/
 
 
 int main(void) {
@@ -61,6 +81,9 @@ int main(void) {
 
     while(noEmptyCells(&exou) == 1) {
         getUserInput(&exou);
+       // checkWinCombination(&exou);
+        computerMakeMove(&exou);
+       // checkWinCombination(&exou);
         printBoard(&j, &k, &i, &exou);
     }
 
