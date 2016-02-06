@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void printBoard(int * l, int * m, int * n, char (*exoup)[9]) {
+void printBoard(int * l, int * n, char (*exoup)[9]) {
 
     string openCell = "| ", closeCell = "|\n", emptyCellSpace = " ", cellRowDivider = " -----------\n";
 
@@ -26,7 +26,7 @@ void printBoard(int * l, int * m, int * n, char (*exoup)[9]) {
 
 char getUserInput(char (*exoup)[9]) {
     int cellNumber;
-    cout << "Enter cell number: ";
+    cout << "\nEnter cell number: ";
     cin >> cellNumber;
 
     /* validation of user input should go here */
@@ -47,6 +47,8 @@ int noEmptyCells(char (*exoup)[9]) {
     return 0;
 }
 
+// Computer makes a move after user input
+
 void computerMakeMove(char (*exoup)[9]) {
     srand(time(0));
     int randomCell = rand() % 9;
@@ -54,15 +56,126 @@ void computerMakeMove(char (*exoup)[9]) {
         randomCell = rand() % 9;
     }
     (*exoup)[randomCell] = 'o';
-    cout << randomCell << "\n";
 
 }
 
-/*void checkWinCombination((*exoup)[9]) {
+// Check if the current positioning of x's or o's is a winning combination
+
+int checkWinCombination(char player, char (*exoup)[9]) {
+
+    if ((*exoup)[0] == player && (*exoup)[1] == player && (*exoup)[2] == player) {
+        cout << "\n" << player << " won the game!\n";
+        exit(0);
+    }
+
+    /* -----------
+      | x | x | x |
+       -----------
+      | - | - | - |
+       -----------
+      | - | - | - |
+       -----------
+    */
+
+    else if ((*exoup)[3] == player && (*exoup)[4] == player && (*exoup)[5] == player) {
+        cout << "\n" << player << " won the game!\n";
+        exit(0);
+    }
+
+    /* -----------
+      | - | - | - |
+       -----------
+      | x | x | x |
+       -----------
+      | - | - | - |
+       -----------
+    */
+
+    else if ((*exoup)[6] == player && (*exoup)[7] == player && (*exoup)[8] == player) {
+        cout << "\n" << player << " won the game!\n";
+        exit(0);
+    }
+
+    /* -----------
+      | - | - | - |
+       -----------
+      | - | - | - |
+       -----------
+      | x | x | x |
+       -----------
+    */
+
+    else if ((*exoup)[0] == player && (*exoup)[3] == player && (*exoup)[6] == player) {
+        cout << "\n" << player << " won the game!\n";
+        exit(0);
+    }
+
+    /* -----------
+      | x | - | - |
+       -----------
+      | x | - | - |
+       -----------
+      | x | - | - |
+       -----------
+    */
+
+    else if ((*exoup)[1] == player && (*exoup)[4] == player && (*exoup)[7] == player) {
+        cout << "\n" << player << " won the game!\n";
+        exit(0);
+    }
+
+    /* -----------
+      | - | x | - |
+       -----------
+      | - | x | - |
+       -----------
+      | - | x | - |
+       -----------
+    */
+
+    else if ((*exoup)[2] == player && (*exoup)[5] == player && (*exoup)[8] == player) {
+        cout << "\n" << player << " won the game!\n";
+        exit(0);
+    }
+
+    /* -----------
+      | - | - | x |
+       -----------
+      | - | - | x |
+       -----------
+      | - | - | x |
+       -----------
+    */
+
+    else if ((*exoup)[0] == player && (*exoup)[4] == player && (*exoup)[8] == player) {
+        cout << "\n" << player << " won the game!\n";
+        exit(0);
+    }
+
+    /* -----------
+      | x | - | - |
+       -----------
+      | - | x | - |
+       -----------
+      | - | - | x |
+       -----------
+    */
+
+    else if ((*exoup)[2] == player && (*exoup)[4] == player && (*exoup)[6] == player) {
+        cout << "\n" << player << " won the game!\n";
+        exit(0);
+    }
+
+    /* -----------
+      | - | - | x |
+       -----------
+      | - | x | - |
+       -----------
+      | x | - | - |
+       -----------
+    */
 
 }
-
-*/
 
 
 int main(void) {
@@ -75,16 +188,16 @@ int main(void) {
     int j = 1, k = 0, i = 0;
     char exou [9] = {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
 
-    printBoard(&j, &k, &i, &exou);
+    printBoard(&j, &i, &exou);
 
     // Run asking user input and printing out the board until noEmptyCell function returns 0
 
     while(noEmptyCells(&exou) == 1) {
         getUserInput(&exou);
-       // checkWinCombination(&exou);
+        checkWinCombination('x', &exou);
         computerMakeMove(&exou);
-       // checkWinCombination(&exou);
-        printBoard(&j, &k, &i, &exou);
+        checkWinCombination('o', &exou);
+        printBoard(&j, &i, &exou);
     }
 
 
